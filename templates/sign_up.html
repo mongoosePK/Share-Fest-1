@@ -5,7 +5,7 @@
   <h2>Sign-Up!</h2>
   <p>We need this information to create your user account:</p>
   
-  <form class="site-form" action="/sms/sign-up/" method="POST">{% csrf_token %}
+  <form class="site-form" action="/sign-up/" method="POST">{% csrf_token %}
     {{form}}
       <input type="submit" value="submit">
   </form>
