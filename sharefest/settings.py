@@ -26,18 +26,11 @@ SECRET_KEY = 'd&hnd)e^$8e!4&i$h-%_0f34&g=tkvc*aqun(5uinr)@6z)*4f'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['polar-dusk-09970.herokuapp.com']
 
 TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
 TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
 MESSAGING_SERVICE_SID = os.getenv("MESSAGING_SERVICE_SID")
-# SMS_BROADCAST_TO_NUMBERS = [ 
-    
-#     "", # use the format +19735551234
-#     "", 
-#     "", 
-# ]
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
