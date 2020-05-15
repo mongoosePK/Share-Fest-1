@@ -2,3 +2,5 @@ django
 gunicorn
 django-heroku
 python-dotenv==0.12.0
+django-phone-field==1.8.0
+twilio==6.37.0
