@@ -8,3 +8,7 @@ local_settings.py
 db.sqlite3-journal
 #vscode
 *.code-workspace
+
+*.pyc
+staticfiles
+.vs-code
