@@ -1,4 +1,4 @@
-# Sharefest SMS service [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/) 
+# Sharefest SMS service [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/) [![Website sharefest.sms.service.not](https://img.shields.io/website-up-down-green-red/http/myfakewebsitethatshouldnotexist.at.least.i.hope.svg)](http://sharefest.sms.service.not/)
 
 Sharefest SMS service is a simple Django web app used to broadcast SMS
 messages to clients or food pantries
