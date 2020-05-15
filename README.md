@@ -1,4 +1,4 @@
-# Sharefest SMS service [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/) [![Website https://polar-dusk-09970.herokuapp.com/](https://img.shields.io/website-up-down-green-red/http/myfakewebsitethatshouldnotexist.at.least.i.hope.svg)](https://polar-dusk-09970.herokuapp.com/)
+# Sharefest SMS service [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/) [![SharefestSMS https://polar-dusk-09970.herokuapp.com/](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://polar-dusk-09970.herokuapp.com/)
 
 Sharefest SMS service is a simple Django web app used to broadcast SMS
 messages to clients or food pantries
@@ -29,9 +29,7 @@ messages to clients or food pantries
 * [django-phone-field](https://pypi.org/project/django-phone-field/)
 * [Twilio](https://www.twilio.com/docs/libraries/python)
 * [Python3.x](https://www.python.org)
-* [SQLite](https://https://www.sqlite.org/index.html)
-* when this is finally pushed to production
-  it will also require Heroku and probably postgreSQL
+* [PostgreSQL](https://www.postgresql.org/)
 
 ## Config
 
@@ -58,7 +56,6 @@ I have outlined the most relative parts of our app
 ```
 sharefest/
     manage.py 
-    db.sqlite3
     
     sharefest/     <--- our site manager folder
         __init__.py
@@ -93,7 +90,8 @@ This site is a work in progress. Future students will be making improvements.
 We need:
 * Security review
 * Better error handling
-* Better styling
+* Better styling 
+* REFACTOR site file structure: html templates and style sheet
 
 any proposed contributions or pull requests should be made to
 [this github](https://github.com/mongoosePK/ShareFest-1)
