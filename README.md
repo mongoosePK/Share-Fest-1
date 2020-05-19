@@ -94,7 +94,7 @@ We need:
 * REFACTOR site file structure: html templates and style sheet
 
 any proposed contributions or pull requests should be made to
-[this github](https://github.com/mongoosePK/ShareFest-1)
+[this github](https://github.com/mongoosePK/Share-Fest-1)
 
 ### License
 Copyright 2020 William Pulkownik
