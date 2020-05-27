@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_list_or_404
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.forms import UserCreationForm
@@ -45,10 +45,13 @@ def result(request):
             body = form.cleaned_data.get('body', '')
     
     # after we validate the form data we pass the
-    recipients = get_numbers(form)
+    recipients = get_list_or_404(Contact.clients.filter(zipcode = zip_code).filter(isPantry = is_pantry))
+    recipientPhoneNumbers = list()
+    for recipient in recipients:
+        recipientPhoneNumbers.append(str(recipient.phonenumber))
     client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
     message_to_broadcast = (f'{body}')
-    for recipient in recipients:
+    for recipient in recipientPhoneNumbers:
         if recipient:
             message = client.messages.create(to=recipient,messaging_service_sid=settings.MESSAGING_SERVICE_SID,
             body=message_to_broadcast)
