@@ -3,6 +3,9 @@ import requests, json
 from django.forms import ModelForm
 from .models import Contact
 
+UPLOAD_TYPE = [('B', 'Basic'), ('M', 'Monee')]
+
+
 class SMSForm(forms.Form):
     #here are the fields we'll be using to query the database 
     # for our contact model objects
@@ -15,3 +18,8 @@ class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
         fields = ('firstname','lastname','email','phonenumber','zipcode','isPantry')
+
+class UploadForm(forms.Form):
+    
+    uploadType = forms.ChoiceField(label='Upload Type', widget=forms.RadioSelect, choices=UPLOAD_TYPE)
+    inputFile = forms.FileField(label='Input File')

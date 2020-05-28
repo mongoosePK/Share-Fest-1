@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.conf import settings
 from django.contrib import messages
 from twilio.rest import Client
-from .forms import SMSForm, ContactForm
+from .forms import SMSForm, ContactForm, UploadForm
 from .models import Contact
 import datetime, csv, io
 
@@ -24,7 +24,7 @@ def sign_up(request):
             return redirect('index')
     else:
         form = UserCreationForm()
-    return render(request, 'sign_up.html',{'form':form})
+    return render(request, 'sign_up.html', {'form':form})
 
 @login_required
 def compose(request):
@@ -65,29 +65,48 @@ def result(request):
 
 @login_required
 def upload(request):
+    form = UploadForm()
     template = 'upload.html'
-    prompt = {
-        'order' : 'Order of the CSV should be first_name, last name,  email, phone number, zip, isPantry.'
-    }
+
     if request.method == 'GET':
-        return render(request, template)
-    csv_file = request.FILES['file']
+        return render(request, template, {'form': form})
+
+    csv_file = request.FILES['inputFile']
     
     if not csv_file.name.endswith('.csv'):
         messages.error(request, 'this is not a csv file')
     
     data_set = csv_file.read().decode('UTF-8')
     io_string = io.StringIO(data_set)
+    
     #skip first line because it is suposed to be a header
-    next(io_string)
-    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
-        _, created = Contact.clients.update_or_create(
-            firstname=column[0],
-            lastname=column[1],
-            email=column[2],
-            phonenumber=column[3],
-            zipcode=column[4],
-            isPantry=column[5]
-        )
-    context = {}
-    return render(request, template, context)
+    if request.POST['uploadType'] == 'B':
+        next(io_string)
+        for row in csv.reader(io_string, delimiter=',', quotechar="|"):
+            _, created = Contact.clients.update_or_create(
+                firstname=row[0],
+                lastname=row[1],
+                email=row[2],
+                phonenumber=row[3],
+                zipcode=row[4],
+                isPantry=row[5]
+            )
+
+    if request.POST['uploadType'] == 'M':
+        next(io_string)
+        for row in csv.reader(io_string, delimiter=',', quotechar="|"):
+            if 'Yes' in row[6]:
+                _, created = Contact.clients.update_or_create(
+                    firstname=row[2],
+                    lastname=row[3],
+                    email='',
+                    phonenumber=row[5],
+                    zipcode=row[4],
+                    isPantry=False
+                )
+    
+    
+    context = {
+        'form' : form
+    }
+    return render(request, template, {'form': form})

@@ -7,10 +7,9 @@
     <!-- <div class="sms-field"> -->
     <form id="SMSForm" action="/result" class="form-inline col-lg-4 col-8">
         {% csrf_token %}
+        
         {{ form.as_p }}
-        <!-- <p>Send to Pantries? {{ form.isPantry }}</p>
-        <p>ZIP{{ form.zip_code }}</p>
-        {{ form.body }} -->
+
         <input class="btn btn-primary text-center send" type="submit" value="SEND" name="">
     </form>
     <!-- </div> -->

@@ -2,8 +2,7 @@
 
 {% block content %}
     <h1>Your .csv file upload service</h1>
-    <h2>libraries for csv parsing & hopefully a gui</h2>
-    <p>Please check Back Later</p>
+    
     {% if messages %}
         {% for message in messages %}
             <div>
@@ -12,13 +11,16 @@
         {% endfor %}
 
     {% else %}
-        {{order}}
+        
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <label>Upload a file</label>
-            <input type="file" name="file">
-            <p>Only accepts .csv files</p>
+            {{ form.as_p }}
+            
             <button type="submit">Upload</button>
         </form>
     {% endif %}
 {% endblock %}
+
+<!-- <label>Upload a file</label> -->
+<!-- <p>Only accepts .csv files</p> -->
+            <!-- <input type="file" name="myfile"> -->
