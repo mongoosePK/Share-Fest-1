@@ -2,13 +2,11 @@ from django import forms
 import requests, json
 from django.forms import ModelForm
 from .models import Contact
-#from django.shortcuts import get_object_or_404
 
 class SMSForm(forms.Form):
     #here are the fields we'll be using to query the database 
     # for our contact model objects
-    ## TODO ##
-    # complete is pantry, #
+    
     isPantry = forms.NullBooleanField(label='Send to Pantries', widget=forms.NullBooleanSelect)
     zip_code = forms.CharField(max_length=5, label='Zip', widget=forms.TextInput)
     body = forms.CharField(label='Message Body', widget=forms.Textarea)
