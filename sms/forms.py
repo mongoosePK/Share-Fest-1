@@ -23,15 +23,3 @@ class UploadForm(forms.Form):
     
     uploadType = forms.ChoiceField(label='Upload Type', widget=forms.RadioSelect, choices=UPLOAD_TYPE)
     inputFile = forms.FileField(label='Input File')
-
-
-### TODO ####
-# probably I will have to make this into a function, since the civilians don't really
-# know what they asked me to build, and will want more functionality
-
-# def get_all_numbers():
-#     querryset = Contact.clients.all()
-#     number_list = []
-#     for item in querryset:
-#         number_list.append(item.phonenumber)
-#     return number_list

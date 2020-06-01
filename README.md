@@ -85,6 +85,8 @@ This main functionality site was designed to be as simple as possible
 There are not too many moving parts:
 you can log in, upload files, and send messages
 
+* When sending messages, if you input 00000 to the ZIP code field, you will get all contacts (the pantry filter still applies) 
+
 ## Contribute
 This site is a work in progress. Future students will be making improvements.
 We need:

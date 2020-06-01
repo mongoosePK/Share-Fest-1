@@ -44,10 +44,8 @@ def result(request):
             zip_code = form.cleaned_data.get('zip_code', '')
             body = form.cleaned_data.get('body', '')
     
-    # after we validate the form data we filter the zip code  
-    # recipients = get_list_or_404(Contact.clients.filter(zipcode = zip_code).filter(isPantry = is_pantry))
 
-    ###QUICK FIX FOR MONEE ### GET ALL CLIENTS ####
+    ### GET ALL CLIENTS ####
     if zip_code == '00000':
         recipients = get_list_or_404(Contact.clients.all())
     else:
