@@ -44,13 +44,23 @@ def result(request):
             zip_code = form.cleaned_data.get('zip_code', '')
             body = form.cleaned_data.get('body', '')
     
-    # after we validate the form data we pass the
-    recipients = get_list_or_404(Contact.clients.filter(zipcode = zip_code).filter(isPantry = is_pantry))
+    # after we validate the form data we filter the zip code  
+    # recipients = get_list_or_404(Contact.clients.filter(zipcode = zip_code).filter(isPantry = is_pantry))
+
+    ###QUICK FIX FOR MONEE ### GET ALL CLIENTS ####
+    if zip_code == '00000':
+        recipients = get_list_or_404(Contact.clients.all())
+    else:
+        recipients = get_list_or_404(Contact.clients.filter(zipcode = zip_code).filter(isPantry = is_pantry))
+
+
     recipientPhoneNumbers = list()
     for recipient in recipients:
         recipientPhoneNumbers.append(str(recipient.phonenumber))
     client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
     message_to_broadcast = (f'{body}')
+    
+    
     for recipient in recipientPhoneNumbers:
         if recipient:
             message = client.messages.create(to=recipient,messaging_service_sid=settings.MESSAGING_SERVICE_SID,
