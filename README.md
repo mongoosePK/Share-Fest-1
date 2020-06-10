@@ -90,6 +90,7 @@ you can log in, upload files, and send messages
 ## Contribute
 This site is a work in progress. Future students will be making improvements.
 We need:
+* form data validation (currently it accepts short numbers, then breaks if you try to sms them)
 * Security review
 * Better error handling
 * Better styling 
