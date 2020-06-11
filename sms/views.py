@@ -26,16 +26,26 @@ def sign_up(request):
         form = UserCreationForm()
     return render(request, 'sign_up.html', {'form':form})
 
+
 @login_required
 def compose(request):
+    '''
+    the compose() view renders our messaging form
+    '''
+    
     form = SMSForm()
     context = {'form': form}
-
 
     return render(request, 'compose.html', context=context)
 
 @login_required
 def result(request):
+    '''
+    result() takes the form data from compose and validates it.
+    it creates a filtered list of clients with matching zipcodes 
+    (or all clients if zip is 00000)  
+
+    '''
     if request.method == 'GET':
         form = SMSForm(request.GET)
 
@@ -45,20 +55,22 @@ def result(request):
             body = form.cleaned_data.get('body', '')
     
 
-    ### GET ALL CLIENTS ####
+    ### GET ALL CLIENTS if ZIP is 0000 ####
     if zip_code == '00000':
         recipients = get_list_or_404(Contact.clients.all())
+    # filter relevant clients
     else:
         recipients = get_list_or_404(Contact.clients.filter(zipcode = zip_code).filter(isPantry = is_pantry))
 
-
+    # create list of recipient phone numbers
     recipientPhoneNumbers = list()
     for recipient in recipients:
         recipientPhoneNumbers.append(str(recipient.phonenumber))
+    # invoke twilio messaging client
     client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
     message_to_broadcast = (f'{body}')
     
-    
+    # iteratively send mesages to clients in list    
     for recipient in recipientPhoneNumbers:
         if recipient:
             message = client.messages.create(to=recipient,messaging_service_sid=settings.MESSAGING_SERVICE_SID,
@@ -73,6 +85,12 @@ def result(request):
 
 @login_required
 def upload(request):
+    '''
+    upload() takes csv files of food pantry clients and creates Contacts from them.
+    Currently, it decides how to order the columns based on the source of the .csv
+    
+    Monee collects client info differently from other pantries, for instance
+    '''
     form = UploadForm()
     template = 'upload.html'
 
@@ -112,8 +130,6 @@ def upload(request):
                     zipcode=row[4],
                     isPantry=False
                 )
-    
-    
     context = {
         'form' : form
     }
