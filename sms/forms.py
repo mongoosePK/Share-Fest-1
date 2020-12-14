@@ -3,7 +3,7 @@ import requests, json
 from django.forms import ModelForm
 from .models import Contact
 
-UPLOAD_TYPE = [('B', 'Basic'), ('M', 'Monee')]
+UPLOAD_TYPE = [('B', 'Basic'), ('M', 'Monee'), ('P', 'Planning Center')]
 
 
 class SMSForm(forms.Form):

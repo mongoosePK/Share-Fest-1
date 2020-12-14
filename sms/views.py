@@ -31,8 +31,8 @@ def sign_up(request):
 def compose(request):
     '''
     the compose() view renders our messaging form
-    '''
-    
+    ''' 
+
     form = SMSForm()
     context = {'form': form}
 
@@ -44,8 +44,8 @@ def result(request):
     result() takes the form data from compose and validates it.
     it creates a filtered list of clients with matching zipcodes 
     (or all clients if zip is 00000)  
-
     '''
+
     if request.method == 'GET':
         form = SMSForm(request.GET)
 
@@ -108,7 +108,7 @@ def upload(request):
     #skip first line because it is suposed to be a header
     if request.POST['uploadType'] == 'B':
         next(io_string)
-        for row in csv.reader(io_string, delimiter=',', quotechar="|"):
+        for row in csv.reader(io_string, delimiter=',', quotechar='|'):
             _, created = Contact.clients.update_or_create(
                 firstname=row[0],
                 lastname=row[1],
@@ -120,7 +120,7 @@ def upload(request):
 
     if request.POST['uploadType'] == 'M':
         next(io_string)
-        for row in csv.reader(io_string, delimiter=',', quotechar="|"):
+        for row in csv.reader(io_string, delimiter=',', quotechar='|'):
             if 'Yes' in row[6]:
                 _, created = Contact.clients.update_or_create(
                     firstname=row[2],
@@ -130,6 +130,18 @@ def upload(request):
                     zipcode=row[4],
                     isPantry=False
                 )
+
+    if request.POST['uploadType'] == 'P':
+        next(io_string)
+        for row in csv.reader(io_string, delimiter=',', quotechar='|'):
+            _, created = Contact.clients.update_or_create(
+                firstname=row[1],
+                lastname=row[0],
+                phonenumber=row[2],
+                isPantry=False
+            )
+
+
     context = {
         'form' : form
     }
