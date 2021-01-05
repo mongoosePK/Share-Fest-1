@@ -118,20 +118,20 @@ def upload(request):
                 isPantry=row[5]
             )
 
-    if request.POST['uploadType'] == 'M':
+    if request.POST['uploadType'] == 'P':
         next(io_string)
         for row in csv.reader(io_string, delimiter=',', quotechar='|'):
-            if 'Yes' in row[6]:
+            if row[8]:
                 _, created = Contact.clients.update_or_create(
-                    firstname=row[2],
-                    lastname=row[3],
+                    firstname=row[1],
+                    lastname=row[2],
                     email='',
-                    phonenumber=row[5],
-                    zipcode=row[4],
+                    phonenumber=row[8],
+                    zipcode=row[21],
                     isPantry=False
                 )
 
-    if request.POST['uploadType'] == 'P':
+    if request.POST['uploadType'] == 'M':
         next(io_string)
         for row in csv.reader(io_string, delimiter=',', quotechar='|'):
             _, created = Contact.clients.update_or_create(
