@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.conf import settings
 from django.contrib import messages
 from twilio.rest import Client
+from twilio.base.exceptions import TwilioRestException
 from .forms import SMSForm, ContactForm, UploadForm
 from .models import Contact
 import datetime, csv, io

@@ -7,7 +7,7 @@ from phone_field import PhoneField
 
 class Contact(models.Model):
     '''
-    
+    Basic contact model.
     '''
     firstname = models.CharField(max_length = 100)
     lastname = models.CharField(max_length = 100)
