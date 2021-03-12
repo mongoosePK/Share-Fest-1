@@ -65,6 +65,7 @@ def result(request):
 
     # create list of recipient phone numbers
     recipientPhoneNumbers = list()
+    failedNumbers = list()
     for recipient in recipients:
         recipientPhoneNumbers.append(str(recipient.phonenumber))
     # invoke twilio messaging client
@@ -74,13 +75,17 @@ def result(request):
     # iteratively send mesages to clients in list    
     for recipient in recipientPhoneNumbers:
         if recipient:
-            message = client.messages.create(to=recipient,messaging_service_sid=settings.MESSAGING_SERVICE_SID,
-            body=message_to_broadcast)
+            try:
+                message = client.messages.create(to=recipient,messaging_service_sid=settings.MESSAGING_SERVICE_SID, body=message_to_broadcast)
+            except TwilioRestException as e:
+                print(e)
+                failedNumbers.append(str(recipient))
 
     context = {
         'recipient' : recipients,
         'message_body' : message.body,
-        'message_sid' : message.sid
+        'message_sid' : message.sid,
+        'failed_numbers': failedNumbers
     }
     return render(request, 'result.html', context=context)
 
