@@ -88,7 +88,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'sharefestdb',
-        'USER': 'mongoose',
+        'USER': 'will',
         'PASSWORD': os.getenv('DB_WORD'),
         'HOST': 'localhost',
         'PORT': '',
