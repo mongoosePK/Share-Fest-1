@@ -88,13 +88,16 @@ you can log in, upload files, and send messages
 * When sending messages, if you input 00000 to the ZIP code field, you will get all contacts (the pantry filter still applies) 
 
 ## Contribute
-This site is a work in progress. Future students will be making improvements.
-We need:
-* form data validation (currently it accepts short numbers, then breaks if you try to sms them)
-* Security review
-* Better error handling
+As with all things, this site could be improved.
+Here are some things I'd like to do:
+* Security review (always and forever)
+* Create a more modular messaging client call
+* More complete testing
 * Better styling 
-* REFACTOR site file structure: html templates and style sheet
+
+* Client editing portal? 
+*(currently it is easier to manipulate client record with a tool that churches and local pantries seem to commonly use. That software charges rather exorbitantly for messaging, beatifics notwithstanding)*
+
 
 any proposed contributions or pull requests should be made to
 [this github](https://github.com/mongoosePK/Share-Fest-1)
