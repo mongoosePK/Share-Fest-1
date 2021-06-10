@@ -96,7 +96,7 @@ Here are some things I'd like to do:
 * Better styling 
 
 * Client editing portal? 
-*(currently it is easier to manipulate client record with a tool that churches and local pantries seem to commonly use. That software charges rather exorbitantly for messaging, beatific vision of the church notwithstanding)*
+*(currently it is easier to manipulate client record with a tool that churches and local pantries seem to commonly use. That software charges rather exorbitantly for messaging)*
 
 
 any proposed contributions or pull requests should be made to
