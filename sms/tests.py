@@ -28,8 +28,8 @@ TODO: - Factor SMS sending cunction in compose() into its own function sendSMS(t
             documentation.
 '''
 
-def test_compose_sms():
-    message = "This is a test."
-    to = "+18034047382"
-    from_ = "+12017333892"
-    assert send_message(to, from_, message) is not None
+# def test_compose_sms():
+#     message = "This is a test."
+#     to = "+18034047382"
+#     from_ = "+12017333892"
+#     assert send_message(to, from_, message) is not None

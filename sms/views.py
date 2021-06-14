@@ -127,13 +127,13 @@ def upload(request):
     if request.POST['uploadType'] == 'P':
         next(io_string)
         for row in csv.reader(io_string, delimiter=',', quotechar='|'):
-            if row[8]:
+            if row[42]:
                 _, created = Contact.clients.update_or_create(
-                    firstname=row[1],
-                    lastname=row[2],
+                    firstname=row[3],
+                    lastname=row[6],
                     email='',
-                    phonenumber=row[8],
-                    zipcode=row[21],
+                    phonenumber=row[42],
+                    zipcode=row[31],
                     isPantry=False
                 )
 
