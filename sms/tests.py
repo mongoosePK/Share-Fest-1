@@ -1,13 +1,24 @@
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sharefest.settings")
+import django
+django.setup()
+##necessary unittest code
+import logging
 from django.conf import settings
 from django.test import TestCase
 from .views import result, compose
 from .models import Contact
+from .view_helpers.messaging import send_multiple_sms
 from unittest import mock
 from twilio.rest import Client
+from twilio.base.exceptions import TwilioRestException
 
-# Models Tests
+##########################
+#### BEGIN MODEL TESTS ####
+##########################
+
 '''
-TODO: assert that the contact model actually creates a contact
+assert that the contact model actually creates a contact
 '''
 class ContactTest(TestCase):
 
@@ -19,32 +30,31 @@ class ContactTest(TestCase):
         self.assertTrue(isinstance(c, Contact))
         self.assertEqual(c.__str__(), 'John Doe')
 
-'''
-TODO: - Factor SMS sending cunction in compose() into its own function sendSMS(to, from, message)
-      - test message sending function
-      - test upload function
+##########################
+#### BEGIN VIEW TESTS ####
+##########################
 
-      NOTE: this test is based off of twilio's PYTEST testing
-            documentation.
-'''
+# Test Sending SMS messages through muli-sms function
 
-# Test Sending SMS messages through Twilio client
-# With Test Credentials
-# messages: POST /2010-04-01/Accounts/{TestAccountSid}/Messages
-def testSms():
-    '''
-    This function tests the twilio client SMS functionality using test tokens.
-    the call returns a json response but I've only printed the message sid 
-    to just verify that things didn't break
-    read more about twilio testing here: 
-    https://www.twilio.com/docs/iam/test-credentials#test-sms-messages
-    '''
+
+
+# @mock.patch('messaging.client.messages.create')
+# def test_multiple_sms():
+#     message_to_broadcast = 'example food pantry text'
+#     expected_sid = 
+    
+    
+    
+    
+def test_twilio_api(): 
     client = Client(settings.TEST_ACCOUNT_SID, settings.TEST_AUTHTOKEN)
-    message = client.messages.create(
-        body='The Earth is Blue, how wonderful, it is amazing.',
-        from_='+15005550006',
-        to='+18034047382'
-    )
+    try:
+        message = client.messages.create(
+            body='The Earth is Blue, how wonderful, it is amazing.',
+            from_='+15005550006',
+            to='+18034047382'
+        )
+    except TwilioRestException as e:
+        logging.error(f'oh no: {e}')
     
-    print(message.sid)
-    
+    assert message.sid is not None

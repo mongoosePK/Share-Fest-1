@@ -8,6 +8,7 @@ from twilio.rest import Client
 from twilio.base.exceptions import TwilioRestException
 from .forms import SMSForm, ContactForm, UploadForm
 from .models import Contact
+from .view_helpers.messaging import send_multiple_sms
 import datetime, csv, io
 
 @login_required
@@ -61,31 +62,29 @@ def result(request):
         recipients = get_list_or_404(Contact.clients.all())
     # filter relevant clients
     else:
-        recipients = get_list_or_404(Contact.clients.filter(zipcode = zip_code).filter(isPantry = is_pantry))
+        recipients = get_list_or_404(Contact.clients.filter(zipcode = zip_code).
+        filter(isPantry = is_pantry))
 
     # create list of recipient phone numbers
     recipientPhoneNumbers = list()
     failedNumbers = list()
     for recipient in recipients:
         recipientPhoneNumbers.append(str(recipient.phonenumber))
+    
     # invoke twilio messaging client
+    # the message sending function returns a tuple containing twilio's message.SID 
+    # and list of failed numbers
+
     client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
     message_to_broadcast = (f'{body}')
-    
-    # iteratively send mesages to clients in list    
-    for recipient in recipientPhoneNumbers:
-        if recipient:
-            try:
-                message = client.messages.create(to=recipient,messaging_service_sid=settings.MESSAGING_SERVICE_SID, body=message_to_broadcast)
-            except TwilioRestException as e:
-                print(e)
-                failedNumbers.append(str(recipient))
+    message = send_multiple_sms(recipientPhoneNumbers, client, message_to_broadcast)
 
+    # return the context to our html
     context = {
         'recipient' : recipients,
-        'message_body' : message.body,
-        'message_sid' : message.sid,
-        'failed_numbers': failedNumbers
+        'message_body' : message_to_broadcast,
+        'message_sid' : message[0],
+        'failed_numbers': message[1]
     }
     return render(request, 'result.html', context=context)
 
