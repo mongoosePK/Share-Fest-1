@@ -29,6 +29,8 @@ ALLOWED_HOSTS = ['polar-dusk-09970.herokuapp.com', 'localhost']
 TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
 TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
 MESSAGING_SERVICE_SID = os.getenv("MESSAGING_SERVICE_SID")
+TEST_ACCOUNT_SID = os.getenv("TEST_ACCOUNT_SID")
+TEST_AUTHTOKEN = os.getenv("TEST_AUTHTOKEN")
 
 INSTALLED_APPS = [
     'django.contrib.admin',
