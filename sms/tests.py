@@ -10,7 +10,9 @@ TODO: assert that the contact model actually creates a contact
 '''
 class ContactTest(TestCase):
 
-    def create_contact(self, firstname='John', lastname='Doe', email='jd@testmail.com', phonenumber='+15555555555', zipcode='55555', isPantry=False):
+    def create_contact(self, firstname='John', 
+    lastname='Doe', email='jd@testmail.com', 
+    phonenumber='+15555555555', zipcode='55555', isPantry=False):
         return Contact.clients.create(firstname=firstname, lastname=lastname, email=email, phonenumber=phonenumber, zipcode=zipcode, isPantry=isPantry)
 
     def test_contact_creation(self):

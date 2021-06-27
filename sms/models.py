@@ -4,7 +4,6 @@ from django.conf import settings
 from phone_field import PhoneField
 # Create contact model here.
 
-
 class Contact(models.Model):
     '''
     Basic contact model.
@@ -18,5 +17,5 @@ class Contact(models.Model):
     clients = models.Manager()
 
     def __str__(self):
-        return (f'{self.firstname} {self.lastname}')
+        return (f'{self.firstname} {self.lastname}, {self.phonenumber}')
     
