@@ -14,11 +14,8 @@ import os
 from dotenv import load_dotenv
 import django_heroku
 load_dotenv()
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
-# Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -32,6 +29,8 @@ ALLOWED_HOSTS = ['polar-dusk-09970.herokuapp.com', 'localhost']
 TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
 TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
 MESSAGING_SERVICE_SID = os.getenv("MESSAGING_SERVICE_SID")
+TEST_ACCOUNT_SID = os.getenv("TEST_ACCOUNT_SID")
+TEST_AUTHTOKEN = os.getenv("TEST_AUTHTOKEN")
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -81,10 +80,6 @@ WSGI_APPLICATION = 'sharefest.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # },
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'sharefestdb',

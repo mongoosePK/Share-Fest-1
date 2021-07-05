@@ -7,7 +7,7 @@ messages to clients or food pantries
   <img src="./images/sharefest_home01.png" width="738">
 </p>
 
-* uses twilio messaging service client to send messages to clients
+* This project uses twilio messaging service client to send messages to clients
   based on their zipcode and whether they are a pantry or a community member
 <p align="center">
   <img src="./images/sharefest_compose01.png" width="738">
@@ -18,11 +18,9 @@ messages to clients or food pantries
   <img src="./images/sharefest_upload01.png" width="738">
 </p>
 
-* Contact .csv files should be in the following format
+* Contact .csv files should contain at least the following information
   **firstname, lastname, email, phonenumber, zipcode, isPantry**
-<p align="center">
-  <img src="./images/contact_example01.png" width="738">
-</p>
+
 
 ## What does sharefest SMS depend on?
 * [Django3.0](https://docs.djangoproject.com/en/3.0/)
@@ -36,20 +34,16 @@ messages to clients or food pantries
 1. Clone the repo
 
 2. after installing Django and site dependencies, navigate to 
-   the folder containing the site and run
+   the root folder run
    ```sh
    $ python manage.py runserver
    ```
-   this will start the server at your local host, usually at 127.0.0.1:8000. 
-   This is the home page shown above
+   this will start the server at your local host, django runs on port 8000 by default.
 
-3. since the DB is still public, you will have the full collection of accounts and 
-   contacts. Once the DB is private, you will have to create your own collections of users if you are not working on the production machine
-
-4. 127.0.0.1/admin will bring you to the Admin panel
+3. 127.0.0.1/admin will bring you to the Admin panel
 
 ### Site Structure
-Django is a simple web app building framework.
+Django is a simple  and clean python web app framework.
 The structure of the app follows a simple pattern
 <details><summary><b>Show details</b></summary>
 I have outlined the most relative parts of our app
@@ -72,18 +66,19 @@ sharefest/
         models.py   <--- location of DB models
         urls.py     <--- routes for our site
         views.py    <--- where the data processing happens
+        messaging.py <-- contains helper functions
     templates/      <--- this folder contains the html
         baseGeneric.html
         compose.html
         upload.html
         ...
-    README.md <--- what you are looking at right now
+    README.md <--- you are looking at it
 </details>
 
 ## How to use?
 This main functionality site was designed to be as simple as possible
 There are not too many moving parts:
-you can log in, upload files, and send messages
+you can log in, upload csv files, and send messages
 
 * When sending messages, if you input 00000 to the ZIP code field, you will get all contacts (the pantry filter still applies) 
 
@@ -91,10 +86,8 @@ you can log in, upload files, and send messages
 As with all things, this site could be improved.
 Here are some things I'd like to do:
 * Security review (always and forever)
-* Create a more modular messaging client call
 * More complete testing
 * Better styling 
-
 * Client editing portal? 
 *(currently it is easier to manipulate client record with a tool that churches and local pantries seem to commonly use. That software charges rather exorbitantly for messaging)*
 
