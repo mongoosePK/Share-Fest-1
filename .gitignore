@@ -11,4 +11,5 @@ db.sqlite3-journal
 *.vs-code
 *.pyc
 staticfiles
-
+#testing
+htmlcov
