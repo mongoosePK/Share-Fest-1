@@ -1,6 +1,7 @@
 # ignore all .env:
 *.env
 .env
+*.venv
 # Django stuff:
 *.log
 local_settings.py
