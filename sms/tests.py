@@ -1,5 +1,6 @@
 import datetime, os, logging
 from django.core.files.base import File
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.http import request, response
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sharefest.settings")
 import django
@@ -65,18 +66,68 @@ class ViewTestCompose(TestCase):
         self.user = User.objects.create_user(
             username='jacob', email='jacob@…', password='top_secret')
 
+    def test_sms_compose_view(self):
+        url = reverse('compose')
+        request = self.factory.get(url)
+        request.user = self.user
+        response = index(request)
+        self.assertEqual(response.status_code, 200)
+
+class ViewTestUpload(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.user = User.objects.create_user(
+            username='jacob', email='jacob@…', password='top_secret')
+
+    def test_sms_compose_view(self):
+        url = reverse('upload')
+        request = self.factory.get(url)
+        request.user = self.user
+        response = index(request)
+        self.assertEqual(response.status_code, 200)
+
+class ViewTestResult(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.user = User.objects.create_user(
+            username='jacob', email='jacob@…', password='top_secret')
+
+    def test_sms_compose_view(self):
+        url = reverse('result')
+        request = self.factory.get(url)
+        request.user = self.user
+        response = index(request)
+        self.assertEqual(response.status_code, 200)
+
+class ViewTestSignup(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.user = User.objects.create_user(
+            username='jacob', email='jacob@…', password='top_secret')
+
+    def test_sms_compose_view(self):
+        url = reverse('sign-up')
+        request = self.factory.get(url)
+        request.user = self.user
+        response = index(request)
+        self.assertEqual(response.status_code, 200)
+
+
 ##########################
 #### BEGIN FORM TESTS ####
 ##########################
 class FormTest(TestCase):
-
+    """
+    TESTS: form.is_valid
+    """
     def create_contact(self, firstname='tony', lastname='tester', email='test@tester.com', 
     phonenumber='+15555555555', zipcode='55555', isPantry=True):
         return Contact.clients.create(firstname=firstname, lastname=lastname, 
         email=email, phonenumber=phonenumber, zipcode=zipcode, isPantry=isPantry)
     
-    
-    '''forms should be valid if GET keys match'''
     def test_valid_SMSForm(self):
         data = {
             'isPantry': True, 'zip_code': '60504', 'body': 'test text'
@@ -104,20 +155,6 @@ class FormTest(TestCase):
         'phonenumber': c.phonenumber, 'zipcode': c.zipcode, 'isPantry': c.isPantry,}
         form = ContactForm(data=data)
         self.assertFalse(form.is_valid())
-
-    # def test_valid_UploadForm(self):
-    #     file_mock = mock.MagicMock(spec=File)
-    #     file_mock.name = 'test.csv'
-    #     data = {'uploadType': 'P', 'inputFile': file_mock}
-    #     form = UploadForm(data=data)
-    #     self.assertTrue(form.is_valid())
-    
-    # def test_invalid_UploadForm(self):
-    #     file_mock = mock.MagicMock(spec=str)
-    #     file_mock.name = 'test.pdf'
-    #     data = {'uploadType': 'P', 'inputFile': ''}
-    #     form = UploadForm(data=data)
-    #     self.assertFalse(form.is_valid())
 
 ##########################
 #### BEGIN API TESTS #####
