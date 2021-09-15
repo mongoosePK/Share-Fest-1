@@ -1,5 +1,9 @@
-from django.test import TestCase, Client, RequestFactory
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sharefest.settings")
+from django.test import TestCase
+from sms.models import Contact
 from sms.forms import SMSForm, ContactForm, UploadForm
+
 
 class FormTest(TestCase):
     """
