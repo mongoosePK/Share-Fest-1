@@ -5,7 +5,7 @@ from .models import Contact
 
 # upload type is a tuple. It can be made it a list of tuples
 # to allow room for different pantry csv formats 
-UPLOAD_TYPE = [('N', 'Null'),('P', 'Planning Center')]
+UPLOAD_TYPE = [('U', 'Update (Planning Center)'),('P', 'Planning Center')]
 
 
 class SMSForm(forms.Form):

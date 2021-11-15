@@ -132,6 +132,19 @@ def upload(request):
                     isPantry=False
                 )
 
+    if request.POST['uploadType'] == 'U':
+        next(io_string)
+        for row in csv.reader(io_string, delimiter=',', quotechar='|'):
+            if row[8]:
+                _, created = Contact.clients.update_or_create(
+                    firstname=row[2],
+                    lastname=row[3],
+                    email='',
+                    phonenumber=row[8],
+                    zipcode=row[21],
+                    isPantry=False
+                )
+
     context = {
         'form' : form
     }
