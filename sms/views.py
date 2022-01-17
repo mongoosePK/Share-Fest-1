@@ -137,8 +137,8 @@ def upload(request):
         for row in csv.reader(io_string, delimiter=',', quotechar='|'):
             if row[8]:
                 _, created = Contact.clients.update_or_create(
-                    firstname=row[2],
-                    lastname=row[3],
+                    firstname=row[1],
+                    lastname=row[2],
                     email='',
                     phonenumber=row[8],
                     zipcode=row[21],
